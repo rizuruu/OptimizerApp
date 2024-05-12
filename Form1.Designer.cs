@@ -36,6 +36,7 @@ namespace OptimizerApp
             BPInfo = new Label();
             BUPInfo = new Label();
             BPSlider = new TrackBar();
+            SaveButton = new Button();
             ((System.ComponentModel.ISupportInitialize)BUPSlider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BPSlider).BeginInit();
             SuspendLayout();
@@ -106,11 +107,23 @@ namespace OptimizerApp
             BPSlider.Value = 10;
             BPSlider.Scroll += BPSlider_Scroll;
             // 
+            // SaveButton
+            // 
+            SaveButton.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            SaveButton.Location = new Point(38, 131);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(107, 38);
+            SaveButton.TabIndex = 9;
+            SaveButton.Text = "Save";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SaveButton);
             Controls.Add(BUPInfo);
             Controls.Add(BPInfo);
             Controls.Add(BUPSlider);
@@ -134,5 +147,6 @@ namespace OptimizerApp
         private Label BPInfo;
         private Label BUPInfo;
         private TrackBar BPSlider;
+        private Button SaveButton;
     }
 }

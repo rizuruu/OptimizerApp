@@ -6,10 +6,23 @@ namespace OptimizerApp
 {
     public partial class Form1 : Form
     {
+        private int BP;
+        private int BUP;
+
         public Form1()
         {
             InitializeComponent();
             SystemEvents.PowerModeChanged += OnPowerModeChanged;
+            BP = Properties.Settings.Default.BP;
+            BUP = Properties.Settings.Default.BUP;
+            Initialise();
+        }
+
+        void Initialise()
+        {
+            BUPSlider.Value = BUP;
+            BPSlider.Value = BP;
+
             BUPInfo.Text = BUPSlider.Value.ToString() + "%";
             BPInfo.Text = BPSlider.Value.ToString() + "%";
         }
@@ -26,7 +39,9 @@ namespace OptimizerApp
                 string message = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online ?
                                  "Charger Plugged In" : "Charger Unplugged";
                 bool plugged = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online;
-                MessageBox.Show(message);
+                //MessageBox.Show(message);
+                int brightness = plugged ? BP : BUP;
+                WindowsSettingsBrightnessController.Set(brightness);
             }
         }
 
@@ -44,13 +59,27 @@ namespace OptimizerApp
 
         private void BUPSlider_Scroll(object sender, EventArgs e)
         {
-            BUPInfo.Text = BUPSlider.Value.ToString() + "%";
+            BUP = BUPSlider.Value;
+            BUPInfo.Text = BUP.ToString() + "%";
         }
 
         private void BPSlider_Scroll(object sender, EventArgs e)
         {
-            BPInfo.Text = BPSlider.Value.ToString() + "%";
-            int val = BPSlider.Value * 10;
+            BP = BPSlider.Value;
+            BPInfo.Text = BP.ToString() + "%";
+        }
+
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveValues();
+        }
+
+        void SaveValues()
+        {
+            Properties.Settings.Default.BP = BP;
+            Properties.Settings.Default.BUP = BUP;
+            Properties.Settings.Default.Save();
         }
     }
 
