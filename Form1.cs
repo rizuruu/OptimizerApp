@@ -10,6 +10,8 @@ namespace OptimizerApp
         {
             InitializeComponent();
             SystemEvents.PowerModeChanged += OnPowerModeChanged;
+            BUPInfo.Text = BUPSlider.Value.ToString() + "%";
+            BPInfo.Text = BPSlider.Value.ToString() + "%";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -35,11 +37,20 @@ namespace OptimizerApp
             base.OnFormClosed(e);
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
-            label1.Text = trackBar1.Value.ToString();
-            int val = trackBar1.Value * 10;
-            WindowsSettingsBrightnessController.Set(val);
+
+        }
+
+        private void BUPSlider_Scroll(object sender, EventArgs e)
+        {
+            BUPInfo.Text = BUPSlider.Value.ToString() + "%";
+        }
+
+        private void BPSlider_Scroll(object sender, EventArgs e)
+        {
+            BPInfo.Text = BPSlider.Value.ToString() + "%";
+            int val = BPSlider.Value * 10;
         }
     }
 
